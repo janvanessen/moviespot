@@ -9,6 +9,7 @@ export default new Vuex.Store({
     watchlist: [],
     searchType: '',
     searchQuery: '',
+    details: {},
   },
   mutations: {
     updateSearchType(state, { type }) {

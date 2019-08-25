@@ -11,7 +11,9 @@ const config = {
     top: BASE_URL + '/movie/top_rated',
     upcoming: BASE_URL + '/movie/upcoming',
     recommendations: BASE_URL + '/movie/{movie_id}/recommendations',
-    img: 'https://image.tmdb.org/t/p/w200/',
+    movie: BASE_URL + '/movie/{movie_id}',
+    poster: 'https://image.tmdb.org/t/p/w200/',
+    backdrop: 'https://image.tmdb.org/t/p/w500/',
   },
   params: {
     api_key: '60980de6390b5e12229c406b32596655',

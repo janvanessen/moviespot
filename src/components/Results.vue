@@ -6,7 +6,7 @@
     <div class="gallery">
       <div class="gallery-panel"
            v-for="movie in movies" :key="movie.id">
-        <img :src="getPosterImg(movie.poster_path)" :alt="movie.title" class="poster-img image">
+        <img :src="getPoster(movie.poster_path)" :alt="movie.title" class="image">
 
         <div v-if="isInWatchList(movie.id)" @click="removeFromWatchlist(movie.id)"
              class="bookmark bookmark-active">
@@ -27,6 +27,13 @@
             <i class="fas fa-user fa-lg"></i>
           </div>
         </div>
+
+        <router-link :to="{ name: 'movie', params: { id: movie.id }}" @click="openMovie(movie.id)"
+                     class="open">
+          <div class="open-icon">
+            <i class="fas fa-list-ul fa-lg"></i>
+          </div>
+        </router-link>
 
       </div>
     </div>
@@ -71,8 +78,8 @@ export default {
     setSearchType(type) {
       this.$store.commit('updateSearchType', { type });
     },
-    getPosterImg(filename) {
-      return config.url.img + filename;
+    getPoster(filename) {
+      return config.url.poster + filename;
     },
     addToWatchlist(movie) {
       this.$store.state.watchlist.push(movie);

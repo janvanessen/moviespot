@@ -2,10 +2,12 @@
   <div id="app">
 
       <router-view/>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
 
-    <div class="version">{{version}}</div>
+      <div class="footer">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link>
+        <div class="version">{{version}}</div>
+      </div>
 
   </div>
 </template>

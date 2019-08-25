@@ -2,11 +2,15 @@
 import axios from 'axios';
 import config from './config';
 
-function requestTmdb(url, params, state) {
+function requestTmdb(url, params, state, isDetailsRequest = false) {
   axios.get(url, { params })
     .then((response) => {
       console.log(response);
-      state.results = response.data.results;
+      if (isDetailsRequest) {
+        state.details = response.data;
+      } else {
+        state.results = response.data.results;
+      }
     })
     .catch((error) => {
       console.error(error);
@@ -45,6 +49,11 @@ function getRecommendations(id, state) {
   requestTmdb(url, config.params, state);
 }
 
+function getMovie(id, state) {
+  const url = config.url.movie.replace('{movie_id}', id);
+  requestTmdb(url, config.params, state, true);
+}
+
 export default {
   search,
   getNowPlaying,
@@ -52,4 +61,5 @@ export default {
   getTopRated,
   getUpcoming,
   getRecommendations,
+  getMovie,
 };

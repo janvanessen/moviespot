@@ -68,6 +68,9 @@ export default {
     labels() {
       return config.labels;
     },
+    results() {
+      return this.$store.state.results.filter(x => x.poster_path);
+    },
   },
   methods: {
     setSearchType(type) {
@@ -98,7 +101,9 @@ export default {
     },
   },
   created() {
-    this.showNowPlaying();
+    if (this.results.length === 0) {
+      this.showNowPlaying();
+    }
   },
 };
 </script>
