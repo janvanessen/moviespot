@@ -1,0 +1,165 @@
+
+body {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: white;
+    background: #141414;
+}
+
+.form-control-borderless {
+    border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.search-card {
+    border: 0;
+    border-radius: 10px !important;
+}
+
+.card-body {
+    padding: 0.75em !important;
+    padding-left: 1.5em !important;
+}
+
+h1 {
+    font-weight: bold;
+    color: #42b983;
+}
+
+a {
+    color: #42b983;
+}
+
+.version {
+    margin-top: 10px;
+    font-size: 75%;
+}
+.results {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding-left: 75px;
+    padding-right: 60px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 50px 5px;
+    margin: 80px auto;
+}
+.gallery-panel img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    transition: transform .2s ease;
+}
+
+
+
+.search {
+    margin-top: 50px;
+}
+
+.search-group {
+    margin: 20px;
+}
+
+.search-input {
+    border: 1px solid white !important;
+    background: transparent !important;
+    color: white !important;
+}
+
+input:active, input:focus
+{
+    color: white;
+    /*outline:0 !important;*/
+    /*-webkit-appearance:none;*/
+    /*box-shadow: none !important;*/
+}
+
+
+
+/* ---- */
+
+.gallery-panel{
+    position: relative;
+}
+
+.image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.bookmark {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 40px;
+}
+
+.bookmark-active {
+    opacity: 1;
+}
+
+.bookmark-icon, .recommendations-icon {
+    background-color: transparent;
+    color: #4CAF50;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.recommendations {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    text-align: center;
+    width: 40px;
+}
+
+.gallery-panel:hover .image {
+    opacity: 0.3;
+}
+
+.gallery-panel:hover .bookmark, .gallery-panel:hover .recommendations {
+    opacity: 1;
+}
+
+.link {
+    cursor: pointer;
+    color: #E5E5E5;
+}
+
+.badge-watchlist {
+    color: white;
+    background: #4CAF50;
+    position: relative;
+    top: -2px;
+}
+
+.title {
+    font-weight: bold;
+    text-align: left;
+    color: white;
+}
+
+.brand {
+    cursor: pointer;
+}

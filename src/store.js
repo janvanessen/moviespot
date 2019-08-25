@@ -5,12 +5,20 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-
+    results: [],
+    watchlist: [],
+    searchType: '',
+    searchQuery: '',
   },
   mutations: {
-
-  },
-  actions: {
-
+    updateSearchType(state, { type }) {
+      state.searchType = type;
+      if (type !== 'search') {
+        state.searchQuery = '';
+      }
+    },
+    updateSearchQuery(state, { query }) {
+      state.searchQuery = query;
+    },
   },
 });
