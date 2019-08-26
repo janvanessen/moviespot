@@ -30,9 +30,21 @@
       </div>
 
       <div class="row">
-        <div class="col-8 overview">
+        <div class="col-8 col-sm-12 overview">
           <h4 v-if="details.tagline" class="tagline">{{ details.tagline }}</h4>
           {{ details.overview }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-9">
+          <div v-for="video in videos" :key="video.key">
+            <h6 class="video">{{video.name}}</h6>
+            <!--suppress HtmlDeprecatedAttribute -->
+            <iframe width="560" height="315" :src="getYoutubeLink(video.key)"
+                    frameborder="0" allow="accelerometer; autoplay; encrypted-media;
+          gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
       </div>
 
@@ -55,6 +67,10 @@ export default {
     details() {
       return this.$store.state.details;
     },
+    videos() {
+      const video = this.$store.state.videos;
+      return video ? video.filter(x => x.site === 'YouTube') : [];
+    },
     watchlist() {
       return this.$store.state.watchlist;
     },
@@ -66,8 +82,12 @@ export default {
       return release ? release.substring(0, 4) : '';
     },
     genres() {
-      const genres = this.details.genres.map(x => x.name);
-      return genres.join(', ');
+      const genre = this.details.genres;
+      if (!genre) {
+        return '';
+      }
+      const list = genre.map(x => x.name);
+      return list.join(', ');
     },
   },
   data() {
@@ -81,6 +101,10 @@ export default {
     },
     getBackdrop(filename) {
       return config.url.backdrop + filename;
+    },
+    getYoutubeLink(key) {
+      // eslint-disable-next-line prefer-template
+      return 'https://www.youtube.com/embed/' + key;
     },
     addToWatchlist(movie) {
       this.$store.state.watchlist.push(movie);

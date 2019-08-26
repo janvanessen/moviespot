@@ -1,39 +1,50 @@
-# moviespot
+# MovieSpot - TMDb Web App
 
-## Project setup
-```
-npm install
-```
+## Search for a movie
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+![MovieSpot](doc/moviespot.png)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Show movie details
 
-### Run your tests
-```
-npm run test
-```
+![MovieSpot](doc/moviespot-details.png)
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
+## The Movie Database
 
-### Run your unit tests
-```
-npm run test:unit
-```
+* [The Movie Database](https://www.themoviedb.org)
+* [TMDb API](https://developers.themoviedb.org/3) 
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Tech Stack
+
+* [Vue.js](https://vuejs.org/) - The Progressive JavaScript Framework
+* [Vue CLI](https://cli.vuejs.org/) - Standard Tooling for Vue.js Development ([Project Setup](doc/SETUP.md))
+* [Vuex](https://vuex.vuejs.org/) - State Management
+* [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
+* [Bootstrap](https://getbootstrap.com/) - CSS framework
+* [Jest](https://jestjs.io/) - JavaScript Testing Framework
+* [cypress](https://www.cypress.io/) - JavaScript End to End Testing Framework
+* [render](https://render.com/) - CDN for startups with automatic continuous deploys from Git
+
+## TODOS: Tests
+
+* Unit tests
+* E2E tests
+* Tests and adaption for mobile devices
+* Automated on real devices and browser ([BrowserStack](https://www.browserstack.com/))
+
+## TODOS: New Features
+
+* Search for TV shows, people, genres, ...
+* Show reviews
+* Rate movies
+* Sort and filter by year, gerne, region, ...
+* [Account](https://developers.themoviedb.org/3/account/get-account-details): watchlist & favorite movies 
+* Recommen
+* [Language support](https://developers.themoviedb.org/3/getting-started/languages)
+* [IMDb support](https://developers.themoviedb.org/3/getting-started/languages)
+* Support for Netflix and Amazon Prime
+
+## TODOS: Personalization
+* Recommendations based on watchlist, favorite movies, ...
+* Own recommender system with deep learning and collaborative filtering
+* Recommender system with user setttings

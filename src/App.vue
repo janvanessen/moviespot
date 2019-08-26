@@ -4,9 +4,18 @@
       <router-view/>
 
       <div class="footer">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
-        <div class="version">{{version}}</div>
+        <div>
+          <a href="https://developers.themoviedb.org/3/getting-started/introduction" target="_blank">
+            <img :src="`${publicPath}tmdb.png`" alt="TMDb Logo" class="tmdb-logo">
+          </a>
+        </div>
+        <div class="version">
+          This product uses the TMDb API but is not endorsed or certified by TMDb.
+        </div>
+        <div class="version">{{version}}&nbsp;&nbsp;Jan van Essen</div>
+        <div>
+          <a href="https://github.com/janvanessen/moviespot" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+        </div>
       </div>
 
   </div>
@@ -21,6 +30,7 @@ export default {
   data() {
     return {
       version: config.version,
+      publicPath: process.env.BASE_URL,
     };
   },
 };

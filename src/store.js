@@ -10,6 +10,7 @@ export default new Vuex.Store({
     searchType: '',
     searchQuery: '',
     details: {},
+    videos: [],
   },
   mutations: {
     updateSearchType(state, { type }) {

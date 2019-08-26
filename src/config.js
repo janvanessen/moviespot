@@ -3,7 +3,7 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 // const API_KEY = '60980de6390b5e12229c406b32596655';
 
 const config = {
-  version: 'v0.2',
+  version: 'v1.0',
   url: {
     search: BASE_URL + '/search/movie',
     now: BASE_URL + '/movie/now_playing',
@@ -12,6 +12,7 @@ const config = {
     upcoming: BASE_URL + '/movie/upcoming',
     recommendations: BASE_URL + '/movie/{movie_id}/recommendations',
     movie: BASE_URL + '/movie/{movie_id}',
+    videos: BASE_URL + '/movie/{movie_id}/videos',
     poster: 'https://image.tmdb.org/t/p/w200/',
     backdrop: 'https://image.tmdb.org/t/p/w500/',
   },

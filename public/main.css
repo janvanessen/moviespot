@@ -21,8 +21,12 @@ body {
 
 
 .footer {
-    padding-top: 50px;
+    padding-top: 100px;
     padding-bottom: 50px;
+}
+
+.footer a, .footer a:focus, .footer a:visited, .footer a:hover {
+    color: #141414 !important;
 }
 
 .form-control-borderless {
@@ -45,9 +49,15 @@ body {
     padding-left: 1.5em !important;
 }
 
-h1, h5, h6 {
+h1, h5 {
     font-weight: bold;
     color: #42b983;
+}
+
+h6.video {
+    font-weight: bold;
+    margin-top: 20px;
+    color: #222222
 }
 
 .movie h5 {
@@ -62,11 +72,13 @@ h1, h5, h6 {
 
 a, a:focus, a:hover, a:visited {
     color: #42b983;
+    font-weight: bold;
     text-decoration: none;
 }
 
 .version {
-    margin-top: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     font-size: 75%;
 }
 .results {
@@ -113,19 +125,24 @@ a, a:focus, a:hover, a:visited {
     border: 1px solid white !important;
     background: transparent !important;
     color: white !important;
+
 }
 
 input:active, input:focus
 {
     color: white;
-    /*outline:0 !important;*/
-    /*-webkit-appearance:none;*/
-    /*box-shadow: none !important;*/
+    outline:0 !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
 }
 
+.search-input::-webkit-search-cancel-button{
+    -webkit-appearance: none;
+}
 
-
-/* ---- */
+.tmdb-logo {
+    width: 200px;
+}
 
 .gallery-panel{
     position: relative;
@@ -236,3 +253,5 @@ input:active, input:focus
 .tagline {
     font-weight: bold;
 }
+
+
