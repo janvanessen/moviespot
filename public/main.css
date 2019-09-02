@@ -216,6 +216,15 @@ input:active, input:focus
     color: #959595 !important;
 }
 
+.menu-link {
+    color: #E5E5E5 !important;
+    font-weight: normal !important;
+}
+
+.router-link-active{
+    font-weight: bold !important;
+}
+
 .badge-watchlist {
     color: white;
     background: #4CAF50;
@@ -254,4 +263,7 @@ input:active, input:focus
     font-weight: bold;
 }
 
-
+.loading-spinner {
+    margin-top: 20px;
+    color: #42b983;
+}

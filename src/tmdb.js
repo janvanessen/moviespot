@@ -1,74 +1,97 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console,prefer-destructuring */
 import axios from 'axios';
 import config from './config';
+import store from './store';
 
-function requestTmdb(url, params, state, stateField = 'results', responseField = 'results') {
-  axios.get(url, { params })
+const CancelToken = axios.CancelToken;
+let source;
+
+function requestTmdb(url, params, responseHandler) {
+  const state = store.state;
+  const options = { params };
+
+  if (url === config.url.search) {
+    if (source) {
+      source.cancel('Cancel request');
+    } else {
+      source = CancelToken.source();
+      options.cancelToken = source.token;
+    }
+  }
+
+  axios.get(url, options)
     .then((response) => {
       console.log(response);
-      if (responseField.length > 0) {
-        state[stateField] = response.data[responseField];
-      } else {
-        state[stateField] = response.data;
-      }
+      source = false;
+      responseHandler(response);
     })
     .catch((error) => {
-      console.error(error);
-      state.results = [];
+      if (axios.isCancel(error)) {
+        console.log(error.message);
+        source = false;
+      } else {
+        console.error(error);
+        state.results = [];
+      }
     });
 }
 
-function getNowPlaying(state) {
-  requestTmdb(config.url.now, config.params, state);
+function searchResponseHandler(response) {
+  const state = store.state;
+  state.results = response.data.results;
 }
 
-function getPopular(state) {
-  requestTmdb(config.url.popular, config.params, state);
+function getMovieResponseHandler(response) {
+  const state = store.state;
+  state.isLoadingMovie = false;
+  state.details = response.data;
 }
 
-function getTopRated(state) {
-  requestTmdb(config.url.top, config.params, state);
+function getVideosResponseHandler(response) {
+  const state = store.state;
+  state.videos = response.data.results;
 }
 
-function getUpcoming(state) {
-  requestTmdb(config.url.upcoming, config.params, state);
-}
-
-function search(query, state) {
-  if (query.length === 0) {
-    getNowPlaying(state);
-    return;
+function getSearchList(type, id) {
+  let url = config.url[type];
+  if (id) {
+    url = url.replace('{movie_id}', id);
   }
+  if (url) {
+    requestTmdb(url, config.params, searchResponseHandler);
+  }
+}
+
+
+function getNowPlaying() {
+  requestTmdb(config.url.now, config.params, searchResponseHandler);
+}
+
+function search(query) {
   const param = config.params;
   param.query = query;
-  requestTmdb(config.url.search, param, state);
+  requestTmdb(config.url.search, param, searchResponseHandler);
 }
 
-function getRecommendations(id, state) {
-  const url = config.url.recommendations.replace('{movie_id}', id);
-  requestTmdb(url, config.params, state);
-}
-
-function getMovie(id, state) {
+function getMovie(id) {
+  const state = store.state;
   state.details = {};
   state.videos = [];
   const url = config.url.movie.replace('{movie_id}', id);
-  requestTmdb(url, config.params, state, 'details', '');
-  this.getVideos(id, state);
+  requestTmdb(url, config.params, getMovieResponseHandler);
+  state.isLoadingMovie = true;
+  this.getVideos(id);
 }
 
-function getVideos(id, state) {
+function getVideos(id) {
   const url = config.url.videos.replace('{movie_id}', id);
-  requestTmdb(url, config.params, state, 'videos', 'results');
+  requestTmdb(url, config.params, getVideosResponseHandler);
 }
 
 export default {
   search,
   getNowPlaying,
-  getPopular,
-  getTopRated,
-  getUpcoming,
-  getRecommendations,
   getMovie,
   getVideos,
+  getSearchList,
 };

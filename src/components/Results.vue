@@ -42,6 +42,8 @@
 </template>
 
 <script>
+/* eslint-disable prefer-template */
+
 
 import tmdb from '../tmdb';
 import config from '../config';
@@ -56,17 +58,20 @@ export default {
     watchlist() {
       return this.$store.state.watchlist;
     },
-    searchType() {
-      return this.$store.state.searchType;
-    },
     isWatchlistOn() {
       return (this.searchType === 'watchlist');
+    },
+    isQuerySearch() {
+      return (this.searchType === 'query');
     },
     movies() {
       return this.isWatchlistOn ? this.watchlist : this.results;
     },
     title() {
       return config.labels[this.searchType];
+    },
+    searchType() {
+      return this.$route.params.type;
     },
   },
   data() {
@@ -75,28 +80,45 @@ export default {
     };
   },
   methods: {
-    setSearchType(type) {
-      this.$store.commit('updateSearchType', { type });
-    },
     getPoster(filename) {
       return config.url.poster + filename;
     },
     addToWatchlist(movie) {
       this.$store.state.watchlist.push(movie);
+      this.saveWatchList();
     },
     removeFromWatchlist(id) {
       const index = this.$store.state.watchlist.findIndex(movie => movie.id === id);
       if (index > -1) {
         this.$store.state.watchlist.splice(index, 1);
+        this.saveWatchList();
       }
     },
+    saveWatchList() {
+      const watchlistString = JSON.stringify(this.$store.state.watchlist);
+      localStorage.setItem(config.watchListKey, watchlistString);
+    },
     showRecommendations(id) {
-      this.setSearchType('recommendations');
-      tmdb.getRecommendations(id, this.$store.state);
+      this.$router.push('/search/recommendations/' + id);
     },
     isInWatchList(id) {
       return this.$store.state.watchlist.find(movie => movie.id === id);
     },
+  },
+  watch: {
+    $route(to) {
+      if (this.isQuerySearch) {
+        return;
+      }
+      this.$store.state.searchQuery = '';
+
+      if (!this.isWatchlistOn) {
+        tmdb.getSearchList(to.params.type, this.$route.params.id);
+      }
+    },
+  },
+  created() {
+    tmdb.getNowPlaying();
   },
 };
 </script>

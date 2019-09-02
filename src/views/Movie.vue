@@ -1,12 +1,27 @@
 <template>
   <div class="movie">
-    <div v-if="details" class="container">
 
-      <div class="row details-header">
+    <div class="container">
+      <div class="row">
         <div class="col-9">
           <router-link to="/" class="back-link">
             <small><i class="fas fa-chevron-left"></i> zurück</small>
           </router-link>
+
+          <div v-if="isLoadingMovie">
+            <div class="spinner-border loading-spinner" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+    <div v-if="details && !isLoadingMovie" class="container">
+
+      <div class="row details-header" >
+        <div class="col-9">
+
           <h1>{{details.title}}</h1>
           <h5>{{year}}</h5>
           <h5 v-if="details.runtime">{{details.runtime}}&nbsp;min</h5>
@@ -30,7 +45,7 @@
       </div>
 
       <div class="row">
-        <div class="col-8 col-sm-12 overview">
+        <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 overview">
           <h4 v-if="details.tagline" class="tagline">{{ details.tagline }}</h4>
           {{ details.overview }}
         </div>
@@ -61,6 +76,9 @@ import config from '../config';
 export default {
   name: 'movie',
   computed: {
+    isLoadingMovie() {
+      return this.$store.state.isLoadingMovie;
+    },
     movieId() {
       return this.$route.params.id;
     },

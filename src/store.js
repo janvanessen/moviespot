@@ -11,6 +11,7 @@ export default new Vuex.Store({
     searchQuery: '',
     details: {},
     videos: [],
+    isLoadingMovie: false,
   },
   mutations: {
     updateSearchType(state, { type }) {

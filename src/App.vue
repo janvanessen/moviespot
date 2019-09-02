@@ -33,5 +33,22 @@ export default {
       publicPath: process.env.BASE_URL,
     };
   },
+  methods: {
+    loadWatchlist() {
+      const savedWatchlist = localStorage.getItem(config.watchListKey);
+      if (savedWatchlist) {
+        try {
+          this.$store.state.watchlist = JSON.parse(savedWatchlist);
+        } catch (e) {
+          localStorage.clear();
+          // eslint-disable-next-line no-console
+          console.error(e);
+        }
+      }
+    },
+  },
+  mounted() {
+    this.loadWatchlist();
+  },
 };
 </script>

@@ -1,9 +1,9 @@
 /* eslint-disable prefer-template */
 const BASE_URL = 'https://api.themoviedb.org/3';
-// const API_KEY = '60980de6390b5e12229c406b32596655';
+const API_KEY = '60980de6390b5e12229c406b32596655';
 
 const config = {
-  version: 'v1.0',
+  version: 'v1.1',
   url: {
     search: BASE_URL + '/search/movie',
     now: BASE_URL + '/movie/now_playing',
@@ -17,14 +17,14 @@ const config = {
     backdrop: 'https://image.tmdb.org/t/p/w500/',
   },
   params: {
-    api_key: '60980de6390b5e12229c406b32596655',
+    api_key: API_KEY,
     language: 'en-US',
     page: 1,
     include_adult: false,
     region: 'DE',
   },
   labels: {
-    search: 'Suche',
+    query: 'My Search',
     now: 'Now Playing',
     popular: 'Popular',
     top: 'Top Rated',
@@ -32,6 +32,7 @@ const config = {
     watchlist: 'My List',
     recommendations: 'Recommendations',
   },
+  watchListKey: 'moviespot-watchlist',
 };
 
 export default config;

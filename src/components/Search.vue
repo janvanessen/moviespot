@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 @click="showNowPlaying" class="brand">{{ title }}</h1>
+    <router-link to="/"><h1 class="brand">{{ title }}</h1></router-link>
 
     <div class="container">
 
@@ -8,29 +8,30 @@
         <div class="col-12 col-md-10 col-lg-6">
 
           <div class="form-group search-group">
-            <input v-model="query" @keyup="search"
+            <input v-model="query" v-debounce:300ms="search"
                    class="form-control form-control-lg search-input"
                    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                    placeholder="Search for a movie" type="search">
           </div>
           {{$store.searchQuery}}
           <div>
-            <span @click="showNowPlaying" class="link">
+            <router-link to="/search/now" class="menu-link">
               {{ labels.now }}
-            </span>&nbsp;&nbsp;
-            <span @click="showUpcoming" class="link">
+            </router-link>&nbsp;&nbsp;
+            <router-link  to="/search/upcoming" class="menu-link">
               {{ labels.upcoming }}
-            </span>&nbsp;&nbsp;
-            <span @click="showTopRated" class="link">
+            </router-link>&nbsp;&nbsp;
+            <router-link  to="/search/top" class="menu-link">
               {{ labels.top }}
-            </span>&nbsp;&nbsp;
-            <span @click="showPopular" class="link">
+            </router-link>&nbsp;&nbsp;
+            <router-link to="/search/popular" class="menu-link">
               {{ labels.popular }}
-            </span>&nbsp;&nbsp;
-            <span @click="showWatchlist" class="link" v-if="watchlist.length > 0" >
+            </router-link>&nbsp;&nbsp;
+            <router-link  to="/search/watchlist" class="menu-link"
+                          v-if="watchlist.length > 0" >
               {{ labels.watchlist }}
               <span class="badge badge-watchlist">{{ watchlist.length }}</span>
-            </span>
+            </router-link>
 
           </div>
 
@@ -44,8 +45,9 @@
 
 <script>
 
-import tmdb from '../tmdb';
+
 import config from '../config';
+import tmdb from '../tmdb';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -71,39 +73,23 @@ export default {
     results() {
       return this.$store.state.results.filter(x => x.poster_path);
     },
+    searchQuery() {
+      return this.$store.state.searchQuery;
+    },
   },
   methods: {
-    setSearchType(type) {
-      this.$store.commit('updateSearchType', { type });
-    },
     search() {
-      this.setSearchType('search');
-      tmdb.search(this.$store.state.searchQuery, this.$store.state);
+      // eslint-disable-next-line no-console
+      console.log(this.$route.params);
+      if (this.$route.params.type !== 'query') {
+        this.$router.push('/search/query');
+      }
+      if (this.searchQuery.length === 0) {
+        this.$router.push('/search/now');
+      } else {
+        tmdb.search(this.searchQuery);
+      }
     },
-    showNowPlaying() {
-      this.setSearchType('now');
-      tmdb.getNowPlaying(this.$store.state);
-    },
-    showPopular() {
-      this.setSearchType('popular');
-      tmdb.getPopular(this.$store.state);
-    },
-    showTopRated() {
-      this.setSearchType('top');
-      tmdb.getTopRated(this.$store.state);
-    },
-    showUpcoming() {
-      this.setSearchType('upcoming');
-      tmdb.getUpcoming(this.$store.state);
-    },
-    showWatchlist() {
-      this.setSearchType('watchlist');
-    },
-  },
-  created() {
-    if (this.results.length === 0) {
-      this.showNowPlaying();
-    }
   },
 };
 </script>
