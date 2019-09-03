@@ -21,16 +21,13 @@
 
       <div class="row details-header" >
         <div class="col-9">
-
           <h1>{{details.title}}</h1>
           <h5>{{year}}</h5>
           <h5 v-if="details.runtime">{{details.runtime}}&nbsp;min</h5>
           <h5>
             <i class="fas fa-star"></i> {{details.vote_average}}
             <small>({{details.vote_count}})</small></h5>
-
           <h5><small>{{genres}}</small></h5>
-
         </div>
       </div>
 
@@ -68,11 +65,10 @@
 </template>
 
 <script>
-
+/* eslint-disable prefer-template */
 import tmdb from '../tmdb';
 import config from '../config';
 
-// noinspection JSUnusedGlobalSymbols
 export default {
   name: 'movie',
   computed: {
@@ -85,16 +81,6 @@ export default {
     details() {
       return this.$store.state.details;
     },
-    videos() {
-      const video = this.$store.state.videos;
-      return video ? video.filter(x => x.site === 'YouTube') : [];
-    },
-    watchlist() {
-      return this.$store.state.watchlist;
-    },
-    isWatchlistOn() {
-      return (this.searchType === 'watchlist');
-    },
     year() {
       const release = this.details.release_date;
       return release ? release.substring(0, 4) : '';
@@ -106,6 +92,10 @@ export default {
       }
       const list = genre.map(x => x.name);
       return list.join(', ');
+    },
+    videos() {
+      const video = this.$store.state.videos;
+      return video ? video.filter(x => x.site === 'YouTube') : [];
     },
   },
   data() {
@@ -121,24 +111,7 @@ export default {
       return config.url.backdrop + filename;
     },
     getYoutubeLink(key) {
-      // eslint-disable-next-line prefer-template
       return 'https://www.youtube.com/embed/' + key;
-    },
-    addToWatchlist(movie) {
-      this.$store.state.watchlist.push(movie);
-    },
-    removeFromWatchlist(id) {
-      const index = this.$store.state.watchlist.findIndex(movie => movie.id === id);
-      if (index > -1) {
-        this.$store.state.watchlist.splice(index, 1);
-      }
-    },
-    showRecommendations(id) {
-      this.setSearchType('recommendations');
-      tmdb.getRecommendations(id, this.$store.state);
-    },
-    isInWatchList(id) {
-      return this.$store.state.watchlist.find(movie => movie.id === id);
     },
   },
   created() {

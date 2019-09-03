@@ -3,10 +3,8 @@
     <router-link to="/"><h1 class="brand">{{ title }}</h1></router-link>
 
     <div class="container">
-
       <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-6">
-
           <div class="form-group search-group">
             <input v-model="query" v-debounce:300ms="search"
                    class="form-control form-control-lg search-input"
@@ -34,11 +32,8 @@
             </router-link>
 
           </div>
-
         </div>
       </div>
-
-
     </div>
   </div>
 </template>
@@ -61,7 +56,7 @@ export default {
         return this.$store.state.searchQuery;
       },
       set(query) {
-        this.$store.commit('updateSearchQuery', { query });
+        this.updateSearchQuery(query);
       },
     },
     watchlist() {
@@ -76,18 +71,34 @@ export default {
     searchQuery() {
       return this.$store.state.searchQuery;
     },
+    searchType() {
+      return this.$route.params.type;
+    },
+    isQuerySearch() {
+      return (this.searchType === 'query');
+    },
   },
   methods: {
     search() {
-      // eslint-disable-next-line no-console
-      console.log(this.$route.params);
-      if (this.$route.params.type !== 'query') {
+      if (this.searchType !== 'query') {
         this.$router.push('/search/query');
       }
+      // if search query is empty, show 'Now Playing'
       if (this.searchQuery.length === 0) {
         this.$router.push('/search/now');
       } else {
         tmdb.search(this.searchQuery);
+      }
+    },
+    updateSearchQuery(query) {
+      this.$store.commit('updateSearchQuery', { query });
+    },
+  },
+  watch: {
+    $route() {
+      // clear search input for all queries except /search/query
+      if (!this.isQuerySearch) {
+        this.updateSearchQuery('');
       }
     },
   },

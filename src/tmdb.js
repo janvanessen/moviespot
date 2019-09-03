@@ -41,17 +41,14 @@ function searchResponseHandler(response) {
   state.results = response.data.results;
 }
 
-function getMovieResponseHandler(response) {
-  const state = store.state;
-  state.isLoadingMovie = false;
-  state.details = response.data;
+// Search by text query
+function search(query) {
+  const param = config.params;
+  param.query = query;
+  requestTmdb(config.url.search, param, searchResponseHandler);
 }
 
-function getVideosResponseHandler(response) {
-  const state = store.state;
-  state.videos = response.data.results;
-}
-
+// Now Playing, Upcoming, Top Rated, ...
 function getSearchList(type, id) {
   let url = config.url[type];
   if (id) {
@@ -62,15 +59,10 @@ function getSearchList(type, id) {
   }
 }
 
-
-function getNowPlaying() {
-  requestTmdb(config.url.now, config.params, searchResponseHandler);
-}
-
-function search(query) {
-  const param = config.params;
-  param.query = query;
-  requestTmdb(config.url.search, param, searchResponseHandler);
+function getMovieResponseHandler(response) {
+  const state = store.state;
+  state.isLoadingMovie = false;
+  state.details = response.data;
 }
 
 function getMovie(id) {
@@ -83,6 +75,11 @@ function getMovie(id) {
   this.getVideos(id);
 }
 
+function getVideosResponseHandler(response) {
+  const state = store.state;
+  state.videos = response.data.results;
+}
+
 function getVideos(id) {
   const url = config.url.videos.replace('{movie_id}', id);
   requestTmdb(url, config.params, getVideosResponseHandler);
@@ -90,7 +87,6 @@ function getVideos(id) {
 
 export default {
   search,
-  getNowPlaying,
   getMovie,
   getVideos,
   getSearchList,

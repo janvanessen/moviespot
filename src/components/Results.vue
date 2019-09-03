@@ -14,6 +14,7 @@
             <i class="fas fa-bookmark fa-lg"></i>
           </div>
         </div>
+
         <div v-else @click="addToWatchlist(movie)"
              class="bookmark">
           <div class="bookmark-icon">
@@ -64,6 +65,9 @@ export default {
     isQuerySearch() {
       return (this.searchType === 'query');
     },
+    isSearchListRoute() {
+      return (!this.isWatchlistOn && !this.isQuerySearch);
+    },
     movies() {
       return this.isWatchlistOn ? this.watchlist : this.results;
     },
@@ -84,41 +88,36 @@ export default {
       return config.url.poster + filename;
     },
     addToWatchlist(movie) {
-      this.$store.state.watchlist.push(movie);
+      this.watchlist.push(movie);
       this.saveWatchList();
     },
     removeFromWatchlist(id) {
-      const index = this.$store.state.watchlist.findIndex(movie => movie.id === id);
+      const index = this.watchlist.findIndex(movie => movie.id === id);
       if (index > -1) {
         this.$store.state.watchlist.splice(index, 1);
         this.saveWatchList();
       }
     },
     saveWatchList() {
-      const watchlistString = JSON.stringify(this.$store.state.watchlist);
+      const watchlistString = JSON.stringify(this.watchlist);
       localStorage.setItem(config.watchListKey, watchlistString);
+    },
+    isInWatchList(id) {
+      return this.watchlist.find(movie => movie.id === id);
     },
     showRecommendations(id) {
       this.$router.push('/search/recommendations/' + id);
     },
-    isInWatchList(id) {
-      return this.$store.state.watchlist.find(movie => movie.id === id);
-    },
   },
   watch: {
     $route(to) {
-      if (this.isQuerySearch) {
-        return;
-      }
-      this.$store.state.searchQuery = '';
-
-      if (!this.isWatchlistOn) {
+      if (this.isSearchListRoute) {
         tmdb.getSearchList(to.params.type, this.$route.params.id);
       }
     },
   },
   created() {
-    tmdb.getNowPlaying();
+    tmdb.getSearchList('now');
   },
 };
 </script>

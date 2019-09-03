@@ -47,7 +47,7 @@
 
 ## TODOS: Performance and quality improvements
 * [Progressive Web App](https://developers.google.com/web/progressive-web-apps/): full screen, splash screen, push notifications offline mode, ...
-* [Lighthouse Audit](https://web.dev/measure): improve performance, accessibility, best practices (Score 100%)
+* [Lighthouse Audit](https://web.dev/measure): improve performance, accessibility, best practices (score 100%)
 
 ## TODOS: Personalization
 * Recommendations based on watchlist, favorite movies, ...

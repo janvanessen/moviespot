@@ -3,7 +3,7 @@
 
       <router-view/>
 
-      <div class="footer">
+      <div class="footer" v-if="!isLoadingMovie">
         <div>
           <a href="https://developers.themoviedb.org/3/getting-started/introduction" target="_blank">
             <img :src="`${publicPath}tmdb.png`" alt="TMDb Logo" class="tmdb-logo">
@@ -32,6 +32,11 @@ export default {
       version: config.version,
       publicPath: process.env.BASE_URL,
     };
+  },
+  computed: {
+    isLoadingMovie() {
+      return this.$store.state.isLoadingMovie;
+    },
   },
   methods: {
     loadWatchlist() {

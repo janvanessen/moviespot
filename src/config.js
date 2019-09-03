@@ -3,7 +3,7 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = '60980de6390b5e12229c406b32596655';
 
 const config = {
-  version: 'v1.1',
+  version: 'v1.2',
   url: {
     search: BASE_URL + '/search/movie',
     now: BASE_URL + '/movie/now_playing',
