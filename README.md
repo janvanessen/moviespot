@@ -2,7 +2,7 @@
 
 ## Live demo
 
-[moviespot.onrender.com/](https://moviespot.onrender.com/)
+[moviespot.onrender.com](https://moviespot.onrender.com/)
 
 ## Search for a movie
 
