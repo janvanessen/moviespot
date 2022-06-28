@@ -6,7 +6,9 @@
     <div class="gallery">
       <div class="gallery-panel"
            v-for="movie in movies" :key="movie.id">
-        <img :src="getPoster(movie.poster_path)" :alt="movie.title" class="image">
+        <router-link :to="{ name: 'movie', params: { id: movie.id }}">
+          <img :src="getPoster(movie.poster_path)" :alt="movie.title" class="image" @click="openMovie(movie.id)">
+        </router-link>
 
         <div v-if="isInWatchList(movie.id)" @click="removeFromWatchlist(movie.id)"
              class="bookmark bookmark-active">
@@ -29,8 +31,7 @@
           </div>
         </div>
 
-        <router-link :to="{ name: 'movie', params: { id: movie.id }}" @click="openMovie(movie.id)"
-                     class="open">
+        <router-link :to="{ name: 'movie', params: { id: movie.id }}" class="open">
           <div class="open-icon">
             <i class="fas fa-list-ul fa-lg"></i>
           </div>
