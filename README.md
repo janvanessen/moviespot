@@ -2,7 +2,12 @@
 
 ## Live demo
 
-[moviespot.onrender.com](https://moviespot.onrender.com/)
+* [moviespot.onrender.com](https://moviespot.onrender.com/)
+
+## Local setup
+* Install: `npm install`
+* Run development server: `npm run serve`
+* Build project: `npm run build`
 
 ## Search for a movie
 
@@ -26,18 +31,13 @@
 * [Vuex](https://vuex.vuejs.org/) - State Management
 * [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
 * [Bootstrap](https://getbootstrap.com/) - CSS framework
-* [Jest](https://jestjs.io/) - JavaScript Testing Framework
-* [cypress](https://www.cypress.io/) - JavaScript End to End Testing Framework
+* [Jest](https://jestjs.io/) - JavaScript Testing Framework (todo)
+* [cypress](https://www.cypress.io/) - JavaScript End to End Testing Framework (todo)
 * [render](https://render.com/) - CDN for startups with automatic continuous deploys from Git
+* [Lighthouse Audit](https://web.dev/measure) (todo)
 
-## TODOS: Tests
 
-* Unit tests
-* E2E tests
-* Tests and adaption for mobile devices
-* Automated on real devices and browser ([BrowserStack](https://www.browserstack.com/))
-
-## TODOS: New Features
+## Feature Backlog
 
 * Search for TV shows, people, genres, ...
 * Show reviews
@@ -47,13 +47,10 @@
 * [Account](https://developers.themoviedb.org/3/account/get-account-details): watchlist & favorite movies 
 * [Language support](https://developers.themoviedb.org/3/getting-started/languages)
 * [IMDb support](https://developers.themoviedb.org/3/getting-started/languages)
-* Support for Netflix and Amazon Prime
+* List of streaming providers
 
-## TODOS: Performance and quality improvements
-* [Progressive Web App](https://developers.google.com/web/progressive-web-apps/): full screen, splash screen, push notifications offline mode, ...
-* [Lighthouse Audit](https://web.dev/measure): improve performance, accessibility, best practices (score 100%)
+## Personalization Backlog
 
-## TODOS: Personalization
 * Recommendations based on watchlist, favorite movies, ...
 * Own recommender system with deep learning and collaborative filtering
 * Recommender system with user setttings
